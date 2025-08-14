@@ -50,10 +50,10 @@ const StoreContextProvider = ({ children }) => {
                         try {
                                     let response = await axios.get(`${url}/api/cart/get`, {
                                                 headers: {
-                                                            Authorization: `Bearer ${token}`
+                                                            token: `${token}`
                                                 }
                                     });
-                                    setCartItems(response.data.data);
+                                    setCartItems(response.data.cartData);
                         } catch (error) {
                                     
                         }
@@ -62,7 +62,7 @@ const StoreContextProvider = ({ children }) => {
                         let totalamount = 0;
                         for (const item in cartItems) {
                                     if (cartItems[item] > 0) {
-                                                let itemInfo = food_list.find((product) => product._id === item)
+                                                let itemInfo = food_list.find((product) => product._id === item);
                                                 totalamount += itemInfo.price * cartItems[item]
                                     }
                         }
@@ -73,10 +73,9 @@ const StoreContextProvider = ({ children }) => {
             const fetchFoodList = async () => {
                         try {
                                     const res = await axios.get(`${url}/api/food/list`);
-                                    console.log("Food list fetched successfully:", res.data.data);
                                     setFoodList(res.data.data);
                         } catch (error) {
-                                    console.error("Error fetching food list:", error);
+                                    console.error("Error StoreContext mein foodlist nahi mili", error);
                         }
             };
 
@@ -103,7 +102,7 @@ const StoreContextProvider = ({ children }) => {
                         token,
                         setToken,
                         getTotalCartAmount,
-
+                        loadCart
             }
             return (
                         <StoreContext.Provider value={contextValue}>

@@ -2,12 +2,17 @@ import { useContext } from 'react';
 import "./Cart.css";
 import { Link, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
+import { useEffect } from 'react';
 
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart, url, getTotalCartAmount } = useContext(StoreContext);
+  const { cartItems, food_list, removeFromCart, url, getTotalCartAmount, loadCart } = useContext(StoreContext);
+
+  useEffect(() => {
+    loadCart()
+  }, [])
 
   // Filter the items which are actually in the cart
-  const cartFoodItems = food_list.filter(food => cartItems[food._id] > 0);
+  const cartFoodItems = cartItems && food_list ? food_list.filter(food => cartItems[food._id] > 0) : {};
   const navigate = useNavigate();
   return (
     <div className='cart'>
@@ -27,7 +32,7 @@ const Cart = () => {
             {cartFoodItems.map((food, index) => (
               <div key={index}>
                 <div className='cart-items-title cart-items-item'>
-                  <img src={`${url}/images/${food.image}`} alt="" />
+                  <img src={food.image ? `${url}/images/${food.image}` : ""} alt={food.name || "Food item"} />
                   <p>{food.name}</p>
                   <p>$ {food.price}</p>
                   <p>{cartItems[food._id]}</p>
