@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 const PlaceOrder = () => {
   const { getTotalCartAmount, token, food_list, cartItems, url, } = useContext(StoreContext);
-  const navigate = useNavigate();
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -42,11 +41,11 @@ const PlaceOrder = () => {
       amount: getTotalCartAmount() + 2,
     }
 
-    let user = localStorage.getItem("user");
-
+    let user = JSON.parse(localStorage.getItem("user"));
+    console.log(user._id)
     let response = await axios.post(url + "/api/order/place", {
       orderData,
-      userId: user ? JSON.parse(user)._id : "",
+      userId: user._id,
     }, { headers: { token } });
     if (response.data.success) {
       const { session_url } = response.data;

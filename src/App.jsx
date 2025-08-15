@@ -40,7 +40,7 @@ const App = () => {
           <Route path='/cart' element={<ProtectedRoute><Cart /></ProtectedRoute>} />
           <Route path='/order' element={<ProtectedRoute><PlaceOrder /></ProtectedRoute>} />
           <Route path="/verify" element={<ProtectedRoute><Verify /></ProtectedRoute>} />
-          <Route path='/myorders' element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+          <Route path='/myorders' element={<Orders />} />
         </Routes>
       </div>
       <Footer />
