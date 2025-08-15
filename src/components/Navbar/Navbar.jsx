@@ -52,7 +52,7 @@ const Navbar = ({ setShowLogin }) => {
 
             {showDropDown && (
               <ul className="dropdown-menu">
-                <li className="dropdown-item" onClick={()=>{setShowDropdown(false);navigate('/cart')}}>Cart</li>
+                <li className="dropdown-item" onClick={()=>{setShowDropdown(false);navigate('/myorders')}}>Orders</li>
                 <li
                   className="dropdown-item"
                   onClick={() => {
